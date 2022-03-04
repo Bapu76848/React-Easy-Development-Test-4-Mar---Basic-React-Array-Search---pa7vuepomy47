@@ -6,36 +6,35 @@ import '../styles/App.css';
 const searchArray = ["Newton", "School", "Newton School", "React", "Preact", "Node", "Mongoose", "Angular", "Vue", "Apple", "Microsoft", "Netflix", "Meta"]
 const App = () => {
   const [value, setValue] = useState('');
-  const [todo,setTodo] = useState([]);
-
-  const handleonClick = () =>{
-    if(value !== 0 && todo !== 0){
-      setTodo([...todo,value]);
-      setValue('');
-    }
-  }
-  
-  return (
+  return(
     <>
-    <div id="main">
-      <h2>Search</h2>
-    </div>
-    <div id="search-input">
-      <input type="text" onChange={(e)=>{setValue(e.target.value)}} value={value}/>
-    </div>
+    <h2>Search</h2>
     <div>
-      <h2>Result</h2>
+      <input type="text" onChange={(e)=>setValue(e.target.value)} value={value} />
     </div>
+    <h2>Result</h2>
     <div>
       <ul>
         {
-          <li>{value}</li>
+          searchArray.filter((val)=>{
+            if(value == ''){
+              return val='';
+            }
+            else if(val.toLowerCase().includes(value.toLowerCase())){
+              return val;
+            }
+          }).map((val,key)=>{
+            return(
+              <li key={key}>
+                {val}
+              </li>
+            )
+          })
         }
       </ul>
     </div>
     </>
   )
 }
-
 
 export default App;
